@@ -1,0 +1,19 @@
+https://simpleit.rocks/python/how-to-translate-a-python-project-with-gettext-the-easy-way/
+
+xgettext command only in bash
+
+mkdir -p locales/{en,es}/LC_MESSAGES
+
+xgettext -d base -o locales/base.pot main.py
+cp locales/base.pot locales/en/LC_MESSAGES/base.po
+cp locales/base.pot locales/es/LC_MESSAGES/base.po
+
+msgfmt -o locales/en/LC_MESSAGES/base.mo locales/en/LC_MESSAGES/base
+msgfmt -o locales/es/LC_MESSAGES/base.mo locales/es/LC_MESSAGES/base
+
+after updating main...
+
+xgettext -d base -o locales/base.pot main.py
+msgmerge --update locales/es/LC_MESSAGES/base.po locales/base.pot
+
+msgfmt -o locales/es/LC_MESSAGES/base.mo locales/es/LC_MESSAGES/base
